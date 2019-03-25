@@ -3,12 +3,12 @@ class ListNode(object):
         self.val = x
         self.next = None
 
-
 class Solution(object):
     def reorderList(self, head):
-        first, second = self.split_into_two(head)
+        second = self.split_into_two(head)
         second = self.reverse(second)
-        return self.interleave(first,second)
+        print_list(second)
+        self.interleave(head, second)
 
     def split_into_two(self, head):
         fh = ListNode(-1)
@@ -21,16 +21,17 @@ class Solution(object):
                 fast = fast.next
         head2 = slow.next
         slow.next = None
-        return head, head2
+        return head2
 
     def reverse(self, head):
-        if not head: return None
+        if not head:
+            return None
         fh = ListNode(-1)
         fh.next = head
         cur, nxt = head, head.next
         while cur and nxt:
             next_cur, next_nxt = nxt, nxt.next
-            cur.next.next = cur
+            nxt.next = cur
             cur, nxt = next_cur, next_nxt
         fh.next.next = None
         fh.next = cur
@@ -47,7 +48,6 @@ class Solution(object):
             head1.next = head2
             head2.next = next_head1
             head1, head2 = next_head1, next_head2
-        return fh1.next
 
 
 def print_list(head):
@@ -63,5 +63,8 @@ if __name__ == '__main__':
     list1.next = ListNode(2)
     list1.next.next = ListNode(3)
     list1.next.next.next = ListNode(4)
-    out = Solution().reorderList(list1)
-    print_list(out)
+    list1.next.next.next.next = ListNode(5)
+    list1.next.next.next.next.next = ListNode(6)
+    list1.next.next.next.next.next.next = ListNode(7)
+    Solution().reorderList(list1)
+    print_list(list1)
