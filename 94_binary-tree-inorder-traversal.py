@@ -12,9 +12,9 @@
 # 3) when cur_node is not valid, pop it, output, and go right
 class Solution(object):
     def inorderTraversal(self, root):
+        ret = []
         cur_node = root
         stack = []
-        ret = []
         while cur_node or len(stack) > 0:
             if cur_node:
                 stack.append(cur_node)
